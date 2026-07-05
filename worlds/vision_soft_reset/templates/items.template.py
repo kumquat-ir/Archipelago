@@ -73,7 +73,6 @@ def fill_item_pool(world: World) -> None:
             to_trim.pop(world.random.randint(0, 1-len(to_trim)))
         for trim in to_trim:
             staged_pool.remove(trim)
-            print(f"trimmed {trim}")
 
     pool += [world.create_item(item) for item in staged_pool]
     needed_filler = len(world.multiworld.get_unfilled_locations(world.player)) - len(pool)

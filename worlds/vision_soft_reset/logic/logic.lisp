@@ -1,60 +1,60 @@
 ;; helper macros for logic
 
 (set* 'charge-wall
-      (or (item "Charge Shot")
-          (item "Energy Claw"
-                "Vile Claw")))
+      (or (items "Charge Shot")
+          (items "Energy Claw"
+                 "Vile Claw")))
 
 (set* 'boostable-claw-wall
-      (or (item "Energy Claw")
-          (item "Speed Boost"
-                "Piercing Speed"))
+      (or (items "Energy Claw")
+          (items "Speed Boost"
+                 "Piercing Speed"))
       'fast-boostable-claw-wall
-      (or (item "Energy Claw")
-          (item "Speed Boost"
-                "Piercing Speed"
-                "Engine Tune"))
+      (or (items "Energy Claw")
+          (items "Speed Boost"
+                 "Piercing Speed"
+                 "Engine Tune"))
       'nonboostable-claw-wall
-      (item "Energy Claw"))
+      (items "Energy Claw"))
 
 (set* 'boost-wall
-      (item "Speed Boost")
+      (items "Speed Boost")
       'fast-boost-wall
-      (item "Speed Boost"
-            "Engine Tune"))
+      (items "Speed Boost"
+             "Engine Tune"))
 
 (set 'boost-climb
-     (item "Speed Boost"
-           "Wall Run"))
+     (items "Speed Boost"
+            "Wall Run"))
 
 (set 'any-vertical
      (any-item "Wall Run"
                "Spin Dodge"))
 
 (set 'both-vertical
-     (item "Wall Run"
-           "Spin Dodge"))
+     (items "Wall Run"
+            "Spin Dodge"))
 
 (set 'hot-water
-     (item "Heat Resist"))
+     (items "Heat Resist"))
 
 (set* 'virus
-      (item "d#Z 5~qn. P")
+      (items "d#Z 5~qn. P")
       'antivirus
-      (item "Virus Wipe"))
+      (items "Virus Wipe"))
 
 (set 'larva-mode
-     (item "Strip Suit"))
+     (items "Strip Suit"))
 
 (set 'power-on
      (region? "Power Area"))
 
 (set 'spin-double
-     (item "Spin Dodge"
-           "Spin Double"))
+     (items "Spin Dodge"
+            "Spin Double"))
 
 (set 'here-be-cottosparks
-     (and (item "Spin Dodge")
+     (and (items "Spin Dodge")
           charge-wall))
 
 (set 'block-puzzle-solve
@@ -79,4 +79,4 @@
 (logic-data
  :regions (require "regions")
  :locations (require "locations")
- :goal (item "Victory"))
+ :goal (items "Victory"))

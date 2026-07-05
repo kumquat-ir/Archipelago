@@ -41,9 +41,9 @@
  (location "Decryptor: Piercing Speed"  113
            :region "Upper Mountain"
            :condition (and both-vertical
-                           (or (item "Speed Boost")
-                               (item "Spin Double"
-                                     "Twister Jump"))))
+                           (or (items "Speed Boost")
+                               (items "Spin Double"
+                                      "Twister Jump"))))
  (location "Decryptor: Golden View"     114
            :region "Power Area"
            :condition power-on)
@@ -55,7 +55,7 @@
                            virus))
  (location "Decryptor: Double Shot"     117
            :region "Mountain Water Run"
-           :condition (item "Speed Boost"))
+           :condition (items "Speed Boost"))
  (location "Card 01: Magoom"     201
            :region "Power Area"
            :condition power-on)
@@ -65,7 +65,7 @@
            :region "Past First Puzzle"
            :condition (and both-vertical
                            (or (option 'HardLogic true)
-                               (item "Charge Shot"))))
+                               (items "Charge Shot"))))
  (location "Card 04: Wavemoth"   204
            :region "Griger's Base (Right)"
            :condition any-vertical)
@@ -77,7 +77,7 @@
            :region "Ship"
            :condition (or boost-climb
                           (and spin-double
-                               (item "Wall Run"))))
+                               (items "Wall Run"))))
  (location "Card 08: Toucade"    208
            :region "Past First Puzzle" ; requires getting here without solving the puzzle
            :condition both-vertical)
@@ -87,20 +87,20 @@
            :region "Griger's Base (Powerless Room)")
  (location "Card 11: Cottospark" 211
            :region "Above Orb A"
-           :condition (and (item "Speed Boost")
+           :condition (and (items "Speed Boost")
                            any-vertical))
  (location "Card 12: Cottocache" 212
            :region "Above Orb A"
-           :condition (and (item "Speed Boost")
+           :condition (and (items "Speed Boost")
                            any-vertical))
  (location "Card 13: Drilbas"    213
            :region "Left of Ship"
            :condition both-vertical)
  (location "Card 14: Jinvell"    214
            :region "Beach"
-           :condition (item "Speed Boost"
-                            "Wall Run"
-                            "Spin Dodge"))
+           :condition (items "Speed Boost"
+                             "Wall Run"
+                             "Spin Dodge"))
  (location "Card 15: Royalrose"  215
            :region "Upper Floatlands")
  (location "Card 16: Rupo"       216
@@ -117,7 +117,7 @@
  (location "Card 20: Griger"     220
            :region "Griger"
            :condition (and any-vertical
-                           (item "Energy Claw")))
+                           (items "Energy Claw")))
  (location "Card 21: Solatia"    221
            :region "Solatia")
  (location "Card 22: Salesman"   222

@@ -9,7 +9,7 @@
              charge-wall)
          (-> "Above First Puzzle"
              (or charge-wall
-                 (item "Wall Run")))
+                 (items "Wall Run")))
          (-> "After Griger"
              larva-mode)
          (-> "Mountain Water Run"
@@ -24,7 +24,7 @@
                  any-vertical))
          (-> "Griger's Base (Top)"
              (or (and power-on
-                      (item "Spin Dodge"))
+                      (items "Spin Dodge"))
                  boostable-claw-wall
                  spin-double))
          (-> "Above Wall Run"
@@ -44,9 +44,9 @@
          (-> "Spin Dodge Area" nil))
  (region "Spin Dodge Area"
          (-> "Pre-Spin Dodge"
-             (item "Spin Dodge"))
+             (items "Spin Dodge"))
          (-> "First Puzzle Solution"
-             (item "Spin Dodge")))
+             (items "Spin Dodge")))
  (region "Griger"
          (-> "After Griger"
              fast-boostable-claw-wall)
@@ -58,11 +58,11 @@
              nonboostable-claw-wall))
  (region "Claw Bounce Area"
          (-> "Orb A"
-             (item "Spin Dodge"
-                   "Energy Claw"))
+             (items "Spin Dodge"
+                    "Energy Claw"))
          (-> "Griger's Base (Bottom Right)"
              (and any-vertical
-                  (item "Energy Claw")))
+                  (items "Energy Claw")))
          (-> "Wall Run Area"
              ;; charge wall here is 3 minute obsidian vines
              ;; not all routes here will be fast enough, but you should be able to get here fast enough no matter what if this entrance is in logic
@@ -92,13 +92,13 @@
              any-vertical))
  (region "Griger's Base (Central)"
          (-> "Griger's Base (Top)"
-             (item "Spin Dodge"))
+             (items "Spin Dodge"))
          (-> "Griger's Base (Right)"
              (or block-puzzle-solve
                  fast-boostable-claw-wall))
          (-> "Griger's Base (Left)"
-             (and (or (item "Spin Dodge")
-                      (and (item "Wall Run")
+             (and (or (items "Spin Dodge")
+                      (and (items "Wall Run")
                            nonboostable-claw-wall))
                   boostable-claw-wall))
          (-> "Griger's Base (Bottom Right)"
@@ -115,22 +115,22 @@
              (and any-vertical
                   nonboostable-claw-wall))
          (-> "Above Orb A"
-             (and (item "Energy Claw")
+             (and (items "Energy Claw")
                   (or both-vertical
                       spin-double))))
  (region "Griger's Base (Bottom Right)"
          (-> "Claw Bounce Area"
-             (item "Energy Claw"
-                   "Spin Dodge"))
+             (items "Energy Claw"
+                    "Spin Dodge"))
          (-> "Griger's Base (Central)"
-             (and (item "Wall Run")
+             (and (items "Wall Run")
                   nonboostable-claw-wall))
          (-> "Griger's Base (Powerless Room)"
              (and any-vertical
                   grigers-base-unpowered)))
  (region "Griger's Base (Bottom Left)"
          (-> "Griger's Base (Central)"
-             (and (item "Wall Run")
+             (and (items "Wall Run")
                   nonboostable-claw-wall))
          (-> "Griger's Base (Powerless Room)"
              (and any-vertical
@@ -146,7 +146,7 @@
              fast-boostable-claw-wall))
  (region "Under Beach"
          (-> "Beach"
-             (item "Spin Dodge"))
+             (items "Spin Dodge"))
          (-> "Power Area" nil)
          (-> "Above Orb A"
              fast-boost-wall))
@@ -154,7 +154,7 @@
          (-> "Underwater"
              ;; charge wall here is 3 minute obsidian vines
              ;; don't think this one is a problem, all logical routes here are fast enough
-             (or (and (item "Spin Dodge")
+             (or (and (items "Spin Dodge")
                       charge-wall)
                  larva-mode)))
  (region "Underwater"
@@ -165,23 +165,23 @@
  (region "Orb A"
          (-> "Underwater" nil)
          (-> "Claw Bounce Area"
-             (item "Spin Dodge"
-                   "Energy Claw"))
+             (items "Spin Dodge"
+                    "Energy Claw"))
          (-> "Above Orb A"
              both-vertical))
  (region "Above Orb A"
          (-> "Orb A" nil)
          (-> "Griger's Base (Left)"
-             (item "Wall Run"))
+             (items "Wall Run"))
          (-> "Under Beach"
              boost-climb))
  (region "Endoplanetary Shield"
          (-> "Hot Water Area"
-             (and (item "Wall Run")
+             (and (items "Wall Run")
                   (any-item "Spin Dodge"
                             "Speed Boost")
-                  (or (item "Heat Reisist"
-                            "Spin Dodge")
+                  (or (items "Heat Reisist"
+                             "Spin Dodge")
                       spin-double)))
          (-> "Past First Puzzle"
              (and boost-climb
@@ -189,11 +189,11 @@
  (region "Hot Water Area"
          (-> "Warehouse"
              (and boost-climb
-                  (or (item "Heat Resist"
-                            "Spin Dodge")
+                  (or (items "Heat Resist"
+                             "Spin Dodge")
                       spin-double)))
          (-> "Endoplanetary Shield"
-             (item "Wall Run")))
+             (items "Wall Run")))
  (region "Warehouse"
          (-> "Orb D"
              larva-mode)
@@ -206,14 +206,14 @@
                   (or power-on
                       spin-double)))
          (-> "Lower Floatlands"
-             (item "Spin Dodge"))
+             (items "Spin Dodge"))
          (-> "Orb B"
              both-vertical))
  (region "Upper Floatlands"
          (-> "Orb B" nil)
          (-> "Floatlands Entry" nil)
          (-> "Right Floatlands"
-             (and (item "Spin Dodge")
+             (and (items "Spin Dodge")
                   (any-item "Energy Claw"
                             "Spin Double"
                             "Twister Jump"))))
@@ -228,19 +228,19 @@
                       boost-climb)))
          (-> "Floatlands Ambush" nil)
          (-> "Floatlands Entry"
-             (item "Spin Dodge")))
+             (items "Spin Dodge")))
  (region "Floatlands Ambush"
          (-> "Right Floatlands"
-             (item "Wall Run"))
+             (items "Wall Run"))
          (-> "Orb B"
-             (and (item "Wall Run")
+             (and (items "Wall Run")
                   (any-item "Spin Dodge"
                             "Speed Boost")))
          (-> "Lower Floatlands"
              (any-item "Spin Dodge"
                        "Speed Boost"))
          (-> "Floatlands Entry"
-             (item "Spin Dodge"))
+             (items "Spin Dodge"))
          (-> "Solatia Run"
              boost-wall))
  (region "Right Floatlands"
@@ -290,7 +290,7 @@
                  boost-climb)))
  (region "Orb C"
          (-> "Mountain Water Run"
-             (item "Wall Run"))
+             (items "Wall Run"))
          (-> "Mountain Fall"
              any-vertical))
  (region "Mountain Fall"
