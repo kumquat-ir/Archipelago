@@ -15,7 +15,7 @@ class VisionSoftResetWorld(World):
     revamped with modern sensibilities and a plethora of new mechanics.
     """
 
-    game = "Vison Soft Reset"
+    game = "Vision Soft Reset"
 
     web = VisionSoftResetWebWorld()
 
@@ -27,6 +27,8 @@ class VisionSoftResetWorld(World):
 
     origin_region_name = "Ship"
 
+    # no idea if this is necessary for not, but this is a small world so it should be fine
+    explicit_indirect_conditions = False
 
     def create_regions(self) -> None:
         regions.create_regions(self)
