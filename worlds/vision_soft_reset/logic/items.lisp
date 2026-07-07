@@ -1,12 +1,16 @@
 (item-list
  ;; filler items
- (item "Phase Refill (25%)"  0 'filler
+ (item "Phase Refill (25%)"  1 'filler
+       :phase-amount 25
        :weight 50)
- (item "Phase Refill (50%)"  1 'filler
+ (item "Phase Refill (50%)"  2 'filler
+       :phase-amount 50
        :weight 25)
- (item "Phase Refill (75%)"  2 'filler
+ (item "Phase Refill (75%)"  3 'filler
+       :phase-amount 75
        :weight 15)
- (item "Phase Refill (100%)" 3 'filler
+ (item "Phase Refill (100%)" 4 'filler
+       :phase-amount 100
        :weight 10)
 
  ;; decryptors
@@ -102,11 +106,11 @@
        :card-id 19)
  (item "Card: Sherivice"  219 'useful
        :card-id 20)
- (item "Card: Griger"     220 'useful
+ (item "Card: Griger"     220 (if-option "require_boss_cards" 'progression 'useful)
        :card-id 21)
- (item "Card: Solatia"    221 'useful
+ (item "Card: Solatia"    221 (if-option "require_boss_cards" 'progression 'useful)
        :card-id 22)
- (item "Card: Salesman"   222 'useful
+ (item "Card: Salesman"   222 (if-option "require_boss_cards" 'progression 'useful)
        :card-id 23)
  (item "Card: Oracle"     223 'filler ; you can't fight yourself
        :trimmable true

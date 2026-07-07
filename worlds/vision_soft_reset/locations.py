@@ -2,7 +2,7 @@
 # Instead see templates/locations.template.py and logic/locations.lisp
 
 from .items import VSRItem
-from .options import HardLogic
+from .options import HardLogic, RequireBossCards
 from worlds.AutoWorld import World
 from BaseClasses import Location
 from rule_builder.rules import Rule, Has, HasAll, HasAny, OptionFilter, True_, CanReachRegion, CanReachEntrance
@@ -50,6 +50,28 @@ LOCATION_ID_MAP: dict[str, int] = {
     "Card 22: Salesman": 222,
     "Card 23: Oracle": 223,
     "Card 24: Oracle-L": 224,
+    "First Ambush": 300,
+    "Ambush Before Charge Shot": 301,
+    "Power Area Lower Ambush": 302,
+    "Power Area Upper Ambush": 303,
+    "Pre-Spin Dodge Ambush": 304,
+    "Cottospark Ambush": 305,
+    "Block Puzzle Ambush": 306,
+    "Underwater Ambush": 307,
+    "Claw Bounce Ambush": 308,
+    "Floatlands Ambush": 309,
+    "First Health Upgrade": 400,
+    "Pre-Spin Dodge Health Upgrade": 401,
+    "Floatlands Health Upgrade": 402,
+    "Warehouse Entry Health Upgrade": 403,
+    "Phase Upgrade Left of Ship": 404,
+    "Phase Upgrade Outside Griger's Base": 405,
+    "Lower Mountain Phase Upgrade": 406,
+    "Upper Mountain Phase Upgrade": 407,
+    "Orb A": 408,
+    "Orb B": 409,
+    "Orb C": 410,
+    "Orb D": 411,
 }
 
 LOCATION_REGION_MAP: dict[str, dict[str, int]] = {
@@ -156,7 +178,7 @@ LOCATION_REGION_MAP: dict[str, dict[str, int]] = {
 LOCATION_RULES: dict[str, Rule] = {
     "Decryptor: Charge Magnet": (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw")),
     "Decryptor: Heat Resist": (HasAny("Wall Run", "Spin Dodge") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw")) & (CanReachEntrance("Above First Puzzle -> Mountain Chamber") | (CanReachEntrance("Ship -> Mountain Water Run") & CanReachEntrance("Mountain Water Run -> Mountain Chamber")))),
-    "Decryptor: Energy Claw": HasAny("Wall Run", "Spin Dodge"),
+    "Decryptor: Energy Claw": (HasAny("Wall Run", "Spin Dodge") & (OptionFilter(RequireBossCards, False) | Has("Card: Griger"))),
     "Decryptor: Strip Suit": (HasAll("Wall Run", "Spin Dodge") & Has("d#Z 5~qn. P")),
     "Decryptor: Shell Escape": Has("Strip Suit"),
     "Decryptor: Vile Claw": Has("Energy Claw"),
@@ -176,14 +198,99 @@ LOCATION_RULES: dict[str, Rule] = {
     "Card 16: Rupo": HasAll("Speed Boost", "Wall Run"),
     "Card 17: Froesburn": Has("Strip Suit"),
     "Card 18: Ghostily": Has("Strip Suit"),
-    "Card 20: Griger": (HasAny("Wall Run", "Spin Dodge") & Has("Energy Claw")),
+    "Card 20: Griger": (HasAny("Wall Run", "Spin Dodge") & Has("Energy Claw") & (OptionFilter(RequireBossCards, False) | Has("Card: Griger"))),
     "Card 22: Salesman": (CanReachRegion("Ship") & CanReachRegion("First Puzzle Solution") & CanReachRegion("Past First Puzzle") & CanReachRegion("Endoplanetary Shield") & CanReachRegion("Power Area") & CanReachRegion("Griger's Base (Top)") & CanReachRegion("Underwater") & CanReachRegion("Orb A") & CanReachRegion("Claw Bounce Area") & CanReachRegion("Floatlands Entry") & CanReachRegion("Solatia Run") & CanReachRegion("Mountain Chamber") & CanReachRegion("Mountain Fall") & CanReachRegion("Warehouse") & (CanReachEntrance("Warehouse -> Hot Water Area") & CanReachEntrance("Hot Water Area -> Endoplanetary Shield") & CanReachEntrance("Endoplanetary Shield -> Past First Puzzle")) & CanReachRegion("Mountaintop")),
     "Card 24: Oracle-L": Has("Strip Suit"),
+    "Defeat Salesman": (OptionFilter(RequireBossCards, False) | Has("Card: Salesman")),
 }
 
 EVENTS: dict[str, dict[str, str]] = {
     "Mountaintop": {
         "Defeat Salesman": "Victory",
+    },
+}
+
+OPTION_LOCATION_REGION_MAP: dict[str, dict[str, dict[str, int]]] = {
+    "add_ambushes": {
+        "Ship": {
+            "First Ambush": 300,
+            "Ambush Before Charge Shot": 301,
+        },
+        "Power Area": {
+            "Power Area Lower Ambush": 302,
+        },
+        "Under Beach": {
+            "Power Area Upper Ambush": 303,
+        },
+        "Pre-Spin Dodge": {
+            "Pre-Spin Dodge Ambush": 304,
+        },
+        "Griger's Base (Right)": {
+            "Cottospark Ambush": 305,
+        },
+        "Griger's Base (Bottom Left)": {
+            "Block Puzzle Ambush": 306,
+        },
+        "Underwater": {
+            "Underwater Ambush": 307,
+        },
+        "Claw Bounce Area": {
+            "Claw Bounce Ambush": 308,
+        },
+        "Floatlands Ambush": {
+            "Floatlands Ambush": 309,
+        },
+    },
+    "add_physical": {
+        "Ship": {
+            "First Health Upgrade": 400,
+        },
+        "Pre-Spin Dodge": {
+            "Pre-Spin Dodge Health Upgrade": 401,
+        },
+        "Upper Floatlands": {
+            "Floatlands Health Upgrade": 402,
+        },
+        "Warehouse": {
+            "Warehouse Entry Health Upgrade": 403,
+        },
+        "Left of Ship": {
+            "Phase Upgrade Left of Ship": 404,
+        },
+        "Griger's Base (Left)": {
+            "Phase Upgrade Outside Griger's Base": 405,
+        },
+        "Mountain Fall": {
+            "Lower Mountain Phase Upgrade": 406,
+        },
+        "Upper Mountain": {
+            "Upper Mountain Phase Upgrade": 407,
+        },
+        "Orb A": {
+            "Orb A": 408,
+        },
+        "Orb B": {
+            "Orb B": 409,
+        },
+        "Orb C": {
+            "Orb C": 410,
+        },
+        "Orb D": {
+            "Orb D": 411,
+        },
+    },
+}
+
+OPTION_LOCATION_RULES: dict[str, dict[str, Rule]] = {
+    "add_ambushes": {
+        "Cottospark Ambush": (Has("Spin Dodge") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw"))),
+        "Block Puzzle Ambush": (Has("Spin Dodge") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw"))),
+        "Claw Bounce Ambush": (Has("Spin Dodge") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw"))),
+    },
+    "add_physical": {
+        "Orb A": (Has("Spin Dodge") | HasAll("Speed Boost", "Wall Run")),
+        "Orb B": (Has("Spin Dodge") | CanReachEntrance("Upper Floatlands -> Orb B") | HasAll("Speed Boost", "Wall Run")),
+        "Orb C": (Has("Wall Run") | HasAll("Spin Dodge", "Spin Double") | HasAll("Spin Dodge", "Twister Jump")),
     },
 }
 
@@ -196,6 +303,12 @@ def create_locations(world: World) -> None:
     for region_name, locations in LOCATION_REGION_MAP.items():
         world.get_region(region_name).add_locations(locations, VSRLocation)
 
+    for option, region_mapping in OPTION_LOCATION_REGION_MAP.items():
+        if not getattr(world.options, option).value:
+            continue
+        for region_name, locations in region_mapping.items():
+            world.get_region(region_name).add_locations(locations, VSRLocation)
+
     for region_name, events in EVENTS.items():
         region = world.get_region(region_name)
         for event_location, event_item in events.items():
@@ -204,5 +317,11 @@ def create_locations(world: World) -> None:
 def set_rules(world: World) -> None:
     for location, rule in LOCATION_RULES.items():
         world.set_rule(world.get_location(location), rule)
+
+    for option, rules in OPTION_LOCATION_RULES.items():
+        if not getattr(world.options, option).value:
+            continue
+        for location, rule in rules.items():
+            world.set_rule(world.get_location(location), rule)
 
     world.set_completion_rule(GOAL)

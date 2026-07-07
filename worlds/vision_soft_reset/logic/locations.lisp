@@ -33,7 +33,9 @@
            :decryptor-id "MENTAL_RECOVERY")
  (location "Decryptor: Energy Claw"     108
            :region "Griger"
-           :condition any-vertical
+           :condition (and any-vertical
+                           (or (option 'RequireBossCards false)
+                               (items "Card: Griger")))
            :decryptor-id "ENERGY_CLAW")
  (location "Decryptor: Strip Suit"      109
            :region "Warehouse"
@@ -154,7 +156,9 @@
  (location "Card 20: Griger"     220
            :region "Griger"
            :condition (and any-vertical
-                           (items "Energy Claw"))
+                           (items "Energy Claw")
+                           (or (option 'RequireBossCards false)
+                               (items "Card: Griger")))
            :card-id 21)
  (location "Card 21: Solatia"    221
            :region "Solatia"
@@ -185,7 +189,108 @@
            :region "Ship"
            :condition larva-mode
            :card-id 25)
+ (location "First Ambush" 300
+           :region "Ship"
+           :include-option "add_ambushes"
+           :ambush-coords '(15 21))
+ (location "Ambush Before Charge Shot" 301
+           :region "Ship"
+           :include-option "add_ambushes"
+           :ambush-coords '(21 20))
+ (location "Power Area Lower Ambush" 302
+           :region "Power Area"
+           :include-option "add_ambushes"
+           :ambush-coords '(10 16))
+ (location "Power Area Upper Ambush" 303
+           :region "Under Beach"
+           :include-option "add_ambushes"
+           :ambush-coords '(6 18))
+ (location "Pre-Spin Dodge Ambush" 304
+           :region "Pre-Spin Dodge"
+           :include-option "add_ambushes"
+           :ambush-coords '(24 14))
+ (location "Cottospark Ambush" 305
+           :region "Griger's Base (Right)"
+           :condition here-be-cottosparks
+           :include-option "add_ambushes"
+           :ambush-coords '(17 14))
+ (location "Block Puzzle Ambush" 306
+           :region "Griger's Base (Bottom Left)"
+           :condition here-be-cottosparks
+           :include-option "add_ambushes"
+           :ambush-coords '(14 11))
+ (location "Underwater Ambush" 307
+           :region "Underwater"
+           :include-option "add_ambushes"
+           :ambush-coords '(5 8))
+ (location "Claw Bounce Ambush" 308
+           :region "Claw Bounce Area"
+           :condition here-be-cottosparks
+           :include-option "add_ambushes"
+           :ambush-coords '(12 9))
+ (location "Floatlands Ambush" 309
+           :region "Floatlands Ambush"
+           :include-option "add_ambushes"
+           :ambush-coords '(12 27))
+ (location "First Health Upgrade" 400
+           :region "Ship"
+           :include-option "add_physical"
+           :health-upgrade-id "HU0")
+ (location "Pre-Spin Dodge Health Upgrade" 401
+           :region "Pre-Spin Dodge"
+           :include-option "add_physical"
+           :health-upgrade-id "HU1")
+ (location "Floatlands Health Upgrade" 402
+           :region "Upper Floatlands"
+           :include-option "add_physical"
+           :health-upgrade-id "HU2")
+ (location "Warehouse Entry Health Upgrade" 403
+           :region "Warehouse"
+           :include-option "add_physical"
+           :health-upgrade-id "HU3")
+ (location "Phase Upgrade Left of Ship" 404
+           :region "Left of Ship"
+           :include-option "add_physical"
+           :phase-upgrade-id "PU0")
+ (location "Phase Upgrade Outside Griger's Base" 405
+           :region "Griger's Base (Left)"
+           :include-option "add_physical"
+           :phase-upgrade-id "PU1")
+ (location "Lower Mountain Phase Upgrade" 406
+           :region "Mountain Fall"
+           :include-option "add_physical"
+           :phase-upgrade-id "PU2")
+ (location "Upper Mountain Phase Upgrade" 407
+           :region "Upper Mountain"
+           :include-option "add_physical"
+           :phase-upgrade-id "PU3")
+ (location "Orb A" 408
+           :region "Orb A"
+           :condition (or (items "Spin Dodge")
+                          boost-climb)
+           :include-option "add_physical"
+           :orb-id "ORB0")
+ (location "Orb B" 409
+           :region "Orb B"
+           :condition (or (items "Spin Dodge")
+                          (entrance? "Upper Floatlands" "Orb B")
+                          boost-climb)
+           :include-option "add_physical"
+           :orb-id "ORB1")
+ (location "Orb C" 410
+           :region "Orb C"
+           :condition (or (items "Wall Run")
+                          spin-double
+                          twister-jump)
+           :include-option "add_physical"
+           :orb-id "ORB2")
+ (location "Orb D" 411
+           :region "Orb D"
+           :include-option "add_physical"
+           :orb-id "ORB3")
  (event "Defeat Salesman" "Victory"
-        :region "Mountaintop"))
+        :region "Mountaintop"
+        :condition (or (option 'RequireBossCards false)
+                       (items "Card: Salesman"))))
 ;; ambush clears?
 ;; physical item finds? (not necessarily shuffling them)

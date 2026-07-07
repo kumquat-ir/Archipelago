@@ -4,7 +4,7 @@
 from worlds.AutoWorld import World
 from BaseClasses import Region
 from rule_builder.rules import Rule, Has, HasAll, HasAny, OptionFilter, True_, CanReachRegion, CanReachEntrance
-from .options import HardLogic
+from .options import HardLogic, RequireBossCards
 
 REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
     "Ship": {
@@ -87,7 +87,7 @@ REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
         "Griger's Base (Powerless Room)": (HasAny("Wall Run", "Spin Dodge") & (CanReachEntrance("After Griger -> Griger") | CanReachEntrance("Claw Bounce Area -> Griger's Base (Bottom Right)") | CanReachEntrance("Griger's Base (Left) -> Griger's Base (Central)") | CanReachEntrance("Above Wall Run -> Griger's Base (Bottom Right)") | (CanReachEntrance("Past First Puzzle -> Griger's Base (Top)") & ((Has("Energy Claw") | HasAll("Speed Boost", "Piercing Speed")) | HasAll("Spin Dodge", "Spin Double"))))),
     },
     "Griger's Base (Powerless Room)": {
-        "Griger's Base (Bottom Left)": None,
+        "Griger's Base (Bottom Left)": (Has("Energy Claw") | HasAll("Speed Boost", "Piercing Speed", "Engine Tune")),
         "Griger's Base (Bottom Right)": HasAny("Wall Run", "Spin Dodge"),
     },
     "Left of Ship": {
@@ -100,7 +100,7 @@ REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
         "Above Orb A": HasAll("Speed Boost", "Engine Tune"),
     },
     "Beach": {
-        "Underwater": ((Has("Spin Dodge") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw"))) | Has("Strip Suit")),
+        "Underwater": (((Has("Spin Dodge") | HasAll("Speed Boost", "Wall Run")) & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw"))) | Has("Strip Suit")),
     },
     "Underwater": {
         "Beach": Has("Strip Suit"),
@@ -158,7 +158,7 @@ REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
     "Right Floatlands": {
         "Floatlands Ambush": None,
         "Upper Floatlands": HasAny("Energy Claw", "Spin Dodge"),
-        "Solatia": (((CanReachRegion("Upper Floatlands") & CanReachRegion("Lower Floatlands") & CanReachRegion("Floatlands Entry") & CanReachRegion("Power Area")) | HasAll("Speed Boost", "Engine Tune")) & HasAll("Wall Run", "Spin Dodge")),
+        "Solatia": (((CanReachRegion("Upper Floatlands") & CanReachRegion("Lower Floatlands") & CanReachRegion("Floatlands Entry") & CanReachRegion("Power Area")) | HasAll("Speed Boost", "Engine Tune")) & HasAll("Wall Run", "Spin Dodge") & (OptionFilter(RequireBossCards, False) | Has("Card: Solatia"))),
     },
     "Solatia": {
         "Solatia Run": None,

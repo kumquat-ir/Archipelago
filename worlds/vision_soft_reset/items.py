@@ -3,14 +3,14 @@
 
 from Options import Option
 from worlds.AutoWorld import World
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 from BaseClasses import ItemClassification, Item
 
 ITEM_ID_MAP: dict[str, int] = {
-    "Phase Refill (25%)": 0,
-    "Phase Refill (50%)": 1,
-    "Phase Refill (75%)": 2,
-    "Phase Refill (100%)": 3,
+    "Phase Refill (25%)": 1,
+    "Phase Refill (50%)": 2,
+    "Phase Refill (75%)": 3,
+    "Phase Refill (100%)": 4,
     "Charge Shot": 100,
     "Charge Magnet": 101,
     "Altered Shot": 102,
@@ -59,7 +59,7 @@ ITEM_ID_MAP: dict[str, int] = {
     "Card: Oracle-L": 224,
 }
 
-ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
+ITEM_CLASSIFICATIONS: dict[str, ItemClassification | Callable[[World], ItemClassification]] = {
     "Phase Refill (25%)": ItemClassification.filler,
     "Phase Refill (50%)": ItemClassification.filler,
     "Phase Refill (75%)": ItemClassification.filler,
@@ -105,9 +105,9 @@ ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
     "Card: Froesburn": ItemClassification.useful,
     "Card: Ghostily": ItemClassification.useful,
     "Card: Sherivice": ItemClassification.useful,
-    "Card: Griger": ItemClassification.useful,
-    "Card: Solatia": ItemClassification.useful,
-    "Card: Salesman": ItemClassification.useful,
+    "Card: Griger": lambda world: ItemClassification.progression if getattr(world.options, "require_boss_cards").value else ItemClassification.useful,
+    "Card: Solatia": lambda world: ItemClassification.progression if getattr(world.options, "require_boss_cards").value else ItemClassification.useful,
+    "Card: Salesman": lambda world: ItemClassification.progression if getattr(world.options, "require_boss_cards").value else ItemClassification.useful,
     "Card: Oracle": ItemClassification.filler,
     "Card: Oracle-L": ItemClassification.filler,
 }
@@ -187,7 +187,10 @@ def random_filler_item_name(world: World) -> str:
     return world.random.choices(list(FILLER_WEIGHTS.keys()), list(FILLER_WEIGHTS.values()))[0]
 
 def create_item(world: World, name: str) -> VSRItem:
-    return VSRItem(name, ITEM_CLASSIFICATIONS.get(name, ItemClassification.filler), ITEM_ID_MAP[name], world.player)
+    classification = ITEM_CLASSIFICATIONS.get(name, ItemClassification.filler)
+    if not isinstance(classification, ItemClassification):
+        classification = classification(world)
+    return VSRItem(name, classification, ITEM_ID_MAP[name], world.player)
 
 def fill_item_pool(world: World) -> None:
     pool: list[Item] = []

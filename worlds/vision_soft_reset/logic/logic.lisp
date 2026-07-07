@@ -49,9 +49,12 @@
 (set 'power-on
      (region? "Power Area"))
 
-(set 'spin-double
-     (items "Spin Dodge"
-            "Spin Double"))
+(set* 'spin-double
+      (items "Spin Dodge"
+             "Spin Double")
+      'twister-jump
+      (items "Spin Dodge"
+             "Twister Jump"))
 
 (set 'here-be-cottosparks
      (and (items "Spin Dodge")

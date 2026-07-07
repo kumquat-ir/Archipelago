@@ -15,6 +15,7 @@ class LocationInfo:
     region: str
     condition: str | None
     event_item: str | None
+    include_option: str | None
 
 @dataclasses.dataclass
 class ItemInfo:
@@ -25,14 +26,19 @@ class ItemInfo:
     trimmable: bool = False
     pool_option: str | None = None
 
-def item(name: str, id: int, classifications: LispSymbol | list[LispSymbol], *,
+def if_option(cond: str, t: LispSymbol, f: LispSymbol) -> str:
+    return f'lambda world: ItemClassification.{t[:]} if getattr(world.options, "{cond}").value else ItemClassification.{f[:]}'
+
+def item(name: str, id: int, classifications: LispSymbol | list[LispSymbol] | str, *,
          weight: int | None = None,
          trimmable: bool = False,
          pool_option: str | None = None, **_kwargs) -> ItemInfo:
     if isinstance(classifications, list):
         classification = " | ".join([f"ItemClassification.{cl[:]}" for cl in classifications])
-    else:
+    elif isinstance(classifications, LispSymbol):
         classification = f"ItemClassification.{classifications[:]}"
+    else:
+        classification = classifications
     return ItemInfo(name, id, classification, weight, trimmable, pool_option)
 
 def item_list(*items: ItemInfo) -> tuple[dict[str, int], dict[str, str], dict[str, int], list[str], list[str], dict[str, list[str]]]:
@@ -96,40 +102,55 @@ def region(name: str, *connections: tuple[str, str | None]) -> RegionInfo:
 def region_list(*regions: RegionInfo) -> dict[str, dict[str, str | None]]:
     return {region.name: region.connections for region in regions}
 
-def location(name: str, id: int, region: str, condition: str | None = None, **_kwargs) -> LocationInfo:
-    return LocationInfo(name, id, region, condition, None)
+def location(name: str, id: int, region: str, condition: str | None = None, include_option: str | None = None, **_kwargs) -> LocationInfo:
+    return LocationInfo(name, id, region, condition, None, include_option)
 
 def event(location_name: str, item_name: str, region: str, condition: str | None = None) -> LocationInfo:
-    return LocationInfo(location_name, None, region, condition, item_name)
+    return LocationInfo(location_name, None, region, condition, item_name, None)
 
-def location_list(*locations: LocationInfo) -> tuple[dict[str, int], dict[str, dict[str, int | str]], dict[str, str], dict[str, dict[str, str]]]:
+def location_list(*locations: LocationInfo):
     id_mapping: dict[str, int] = {}
     region_mapping: dict[str, dict[str, int | str]] = {}
     rules: dict[str, str] = {}
     events: dict[str, dict[str, str]] = {}
+    option_region_mapping: dict[str, dict[str, dict[str, int | str]]] = {}
+    option_rules: dict[str, dict[str, str]] = {}
 
     for location in locations:
+
         if location.id is not None:
             id_mapping[location.name] = location.id
-            if location.region not in region_mapping:
-                region_mapping[location.region] = {}
-            region_mapping[location.region][location.name] = location.id
+            if location.include_option is not None:
+                if location.include_option not in option_region_mapping:
+                    option_region_mapping[location.include_option] = {}
+                if location.region not in option_region_mapping[location.include_option]:
+                    option_region_mapping[location.include_option][location.region] = {}
+                option_region_mapping[location.include_option][location.region][location.name] = location.id
+            else:
+                if location.region not in region_mapping:
+                    region_mapping[location.region] = {}
+                region_mapping[location.region][location.name] = location.id
         else:
             assert location.event_item is not None
             if location.region not in events:
                 events[location.region] = {}
             events[location.region][location.name] = location.event_item
         if location.condition is not None:
-            rules[location.name] = location.condition
+            if location.include_option is not None:
+                if location.include_option not in option_rules:
+                    option_rules[location.include_option] = {}
+                option_rules[location.include_option][location.name] = location.condition
+            else:
+                rules[location.name] = location.condition
 
-    return (id_mapping, region_mapping, rules, events)
+    return (id_mapping, region_mapping, rules, events, option_region_mapping, option_rules)
 
-# type soup
-def logic_data(regions, locations, goal) -> tuple[dict[str, dict[str, str | None]], tuple[dict[str, int], dict[str, dict[str, int | None]], dict[str, str], dict[str, dict[str, str]]], str]:
+def logic_data(regions, locations, goal):
     return (regions, locations, goal)
 
 def use() -> None:
     LispState.reset()
+    LispState.register_global(if_option, "if-option")
     LispState.register_global(item)
     LispState.register_global(item_list, "item-list")
     LispState.register_global(items)

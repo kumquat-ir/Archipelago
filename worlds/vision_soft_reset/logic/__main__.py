@@ -25,21 +25,30 @@ render("items.template.py", this_dir.parent / "items.py",
        trimmable=trimmable,
        option_pools=option_pools)
 
-(region_data, (id_mapping, region_mapping, rules, events), goal) = interpreter.parse_file(this_dir / "logic.lisp")
+(region_data,
+ (id_mapping, region_mapping, location_rules, events, option_location_regions, option_location_rules),
+ goal) = interpreter.parse_file(this_dir / "logic.lisp")
 render("regions.template.py", this_dir.parent / "regions.py",
        region_data=region_data)
 render("locations.template.py", this_dir.parent / "locations.py",
        id_mapping=id_mapping,
        region_mapping=region_mapping,
-       rules=rules,
+       location_rules=location_rules,
        events=events,
-       goal=goal)
+       goal=goal,
+       option_location_regions=option_location_regions,
+       option_location_rules=option_location_rules)
 
 mod_data_defs.use()
-(decryptor_items, card_items) = interpreter.parse_file(this_dir / "items.lisp")
-(decryptor_locations, card_locations) = interpreter.parse_file(this_dir / "logic.lisp")
+(decryptor_items, card_items, phase_amounts) = interpreter.parse_file(this_dir / "items.lisp")
+(decryptor_locations, card_locations, ambush_locations, health_locations, phase_locations, orb_locations) = interpreter.parse_file(this_dir / "logic.lisp")
 render("Data.template.cs", this_dir / "mod" / "Data.cs",
        decryptor_items=decryptor_items,
        decryptor_locations=decryptor_locations,
+       phase_amounts=phase_amounts,
        card_items=card_items,
-       card_locations=card_locations)
+       card_locations=card_locations,
+       ambush_locations=ambush_locations,
+       health_locations=health_locations,
+       phase_locations=phase_locations,
+       orb_locations=orb_locations)

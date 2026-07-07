@@ -136,7 +136,8 @@
              (and any-vertical
                   grigers-base-unpowered)))
  (region "Griger's Base (Powerless Room)"
-         (-> "Griger's Base (Bottom Left)" nil)
+         (-> "Griger's Base (Bottom Left)"
+             fast-boostable-claw-wall)
          (-> "Griger's Base (Bottom Right)"
              any-vertical))
  (region "Left of Ship"
@@ -154,7 +155,8 @@
          (-> "Underwater"
              ;; charge wall here is 3 minute obsidian vines
              ;; don't think this one is a problem, all logical routes here are fast enough
-             (or (and (items "Spin Dodge")
+             (or (and (or (items "Spin Dodge")
+                          boost-climb)
                       charge-wall)
                  larva-mode)))
  (region "Underwater"
@@ -254,7 +256,9 @@
                            (region? "Floatlands Entry")
                            power-on)
                       fast-boost-wall)
-                  both-vertical)))
+                  both-vertical
+                  (or (option 'RequireBossCards false)
+                      (items "Card: Solatia")))))
  (region "Solatia"
          (-> "Solatia Run" nil))
  (region "Solatia Run"

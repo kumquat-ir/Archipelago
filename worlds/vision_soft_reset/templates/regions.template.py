@@ -4,7 +4,7 @@
 from worlds.AutoWorld import World
 from BaseClasses import Region
 from rule_builder.rules import Rule, Has, HasAll, HasAny, OptionFilter, True_, CanReachRegion, CanReachEntrance
-from .options import HardLogic
+from .options import HardLogic, RequireBossCards
 
 REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
     {%- for name, connections in region_data.items() %}

@@ -3,7 +3,7 @@
 
 from Options import Option
 from worlds.AutoWorld import World
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 from BaseClasses import ItemClassification, Item
 
 ITEM_ID_MAP: dict[str, int] = {
@@ -12,7 +12,7 @@ ITEM_ID_MAP: dict[str, int] = {
 {%- endfor %}
 }
 
-ITEM_CLASSIFICATIONS: dict[str, ItemClassification] = {
+ITEM_CLASSIFICATIONS: dict[str, ItemClassification | Callable[[World], ItemClassification]] = {
 {%- for item, classification in classification_mapping.items() %}
     "{{ item }}": {{ classification }},
 {%- endfor %}
@@ -53,7 +53,10 @@ def random_filler_item_name(world: World) -> str:
     return world.random.choices(list(FILLER_WEIGHTS.keys()), list(FILLER_WEIGHTS.values()))[0]
 
 def create_item(world: World, name: str) -> VSRItem:
-    return VSRItem(name, ITEM_CLASSIFICATIONS.get(name, ItemClassification.filler), ITEM_ID_MAP[name], world.player)
+    classification = ITEM_CLASSIFICATIONS.get(name, ItemClassification.filler)
+    if not isinstance(classification, ItemClassification):
+        classification = classification(world)
+    return VSRItem(name, classification, ITEM_ID_MAP[name], world.player)
 
 def fill_item_pool(world: World) -> None:
     pool: list[Item] = []
