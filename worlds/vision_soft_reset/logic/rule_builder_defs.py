@@ -28,7 +28,7 @@ class ItemInfo:
 def item(name: str, id: int, classifications: LispSymbol | list[LispSymbol], *,
          weight: int | None = None,
          trimmable: bool = False,
-         pool_option: str | None = None) -> ItemInfo:
+         pool_option: str | None = None, **_kwargs) -> ItemInfo:
     if isinstance(classifications, list):
         classification = " | ".join([f"ItemClassification.{cl[:]}" for cl in classifications])
     else:
@@ -96,7 +96,7 @@ def region(name: str, *connections: tuple[str, str | None]) -> RegionInfo:
 def region_list(*regions: RegionInfo) -> dict[str, dict[str, str | None]]:
     return {region.name: region.connections for region in regions}
 
-def location(name: str, id: int, region: str, condition: str | None = None) -> LocationInfo:
+def location(name: str, id: int, region: str, condition: str | None = None, **_kwargs) -> LocationInfo:
     return LocationInfo(name, id, region, condition, None)
 
 def event(location_name: str, item_name: str, region: str, condition: str | None = None) -> LocationInfo:
