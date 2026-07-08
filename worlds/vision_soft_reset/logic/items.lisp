@@ -1,16 +1,16 @@
 (item-list
  ;; filler items
  (item "Phase Refill (25%)"  1 'filler
-       :phase-amount 25
+       :phase-amount 20
        :weight 50)
  (item "Phase Refill (50%)"  2 'filler
-       :phase-amount 50
+       :phase-amount 40
        :weight 25)
  (item "Phase Refill (75%)"  3 'filler
-       :phase-amount 75
+       :phase-amount 60
        :weight 15)
  (item "Phase Refill (100%)" 4 'filler
-       :phase-amount 100
+       :phase-amount 80
        :weight 10)
 
  ;; decryptors
