@@ -104,7 +104,7 @@
        :card-id 18)
  (item "Card: Ghostily"   218 'useful
        :card-id 19)
- (item "Card: Sherivice"  219 'useful
+ (item "Card: Sherivice"  219 'useful ; technically a boss but is really just the tutorial
        :card-id 20)
  (item "Card: Griger"     220 (if-option "require_boss_cards" 'progression 'useful)
        :card-id 21)

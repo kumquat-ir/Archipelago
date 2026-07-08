@@ -165,7 +165,8 @@
          (-> "Orb A"
              any-vertical))
  (region "Orb A"
-         (-> "Underwater" nil)
+         (-> "Underwater"
+             any-vertical)
          (-> "Claw Bounce Area"
              (items "Spin Dodge"
                     "Energy Claw"))
@@ -255,7 +256,7 @@
                            (region? "Lower Floatlands")
                            (region? "Floatlands Entry")
                            power-on)
-                      fast-boost-wall)
+                      boost-wall)
                   both-vertical
                   (or (option 'RequireBossCards false)
                       (items "Card: Solatia")))))

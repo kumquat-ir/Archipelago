@@ -190,7 +190,7 @@ LOCATION_RULES: dict[str, Rule] = {
     "Card 03: Smosey": (HasAll("Wall Run", "Spin Dodge") & (OptionFilter(HardLogic, True) | Has("Charge Shot"))),
     "Card 04: Wavemoth": HasAny("Wall Run", "Spin Dodge"),
     "Card 07: Sealime": (HasAll("Speed Boost", "Wall Run") | (HasAll("Spin Dodge", "Spin Double") & Has("Wall Run"))),
-    "Card 08: Toucade": HasAll("Wall Run", "Spin Dodge"),
+    "Card 08: Toucade": Has("Spin Dodge"),
     "Card 11: Cottospark": (Has("Speed Boost") & HasAny("Wall Run", "Spin Dodge")),
     "Card 12: Cottocache": (Has("Speed Boost") & HasAny("Wall Run", "Spin Dodge")),
     "Card 13: Drilbas": HasAll("Wall Run", "Spin Dodge"),
@@ -288,6 +288,8 @@ OPTION_LOCATION_RULES: dict[str, dict[str, Rule]] = {
         "Claw Bounce Ambush": (Has("Spin Dodge") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw"))),
     },
     "add_physical": {
+        "Pre-Spin Dodge Health Upgrade": (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw")),
+        "Phase Upgrade Outside Griger's Base": HasAny("Wall Run", "Spin Dodge"),
         "Orb A": (Has("Spin Dodge") | HasAll("Speed Boost", "Wall Run")),
         "Orb B": (Has("Spin Dodge") | CanReachEntrance("Upper Floatlands -> Orb B") | HasAll("Speed Boost", "Wall Run")),
         "Orb C": (Has("Wall Run") | HasAll("Spin Dodge", "Spin Double") | HasAll("Spin Dodge", "Twister Jump")),

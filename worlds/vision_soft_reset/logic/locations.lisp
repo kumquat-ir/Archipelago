@@ -107,7 +107,7 @@
            :card-id 7)
  (location "Card 08: Toucade"    208
            :region "Past First Puzzle" ; requires getting here without solving the puzzle
-           :condition both-vertical
+           :condition (items "Spin Dodge")
            :card-id 8)
  (location "Card 09: Shaifi"     209
            :region "Beach"
@@ -238,6 +238,7 @@
            :health-upgrade-id "HU0")
  (location "Pre-Spin Dodge Health Upgrade" 401
            :region "Pre-Spin Dodge"
+           :condition charge-wall
            :include-option "add_physical"
            :health-upgrade-id "HU1")
  (location "Floatlands Health Upgrade" 402
@@ -254,6 +255,7 @@
            :phase-upgrade-id "PU0")
  (location "Phase Upgrade Outside Griger's Base" 405
            :region "Griger's Base (Left)"
+           :condition any-vertical
            :include-option "add_physical"
            :phase-upgrade-id "PU1")
  (location "Lower Mountain Phase Upgrade" 406
@@ -292,5 +294,3 @@
         :region "Mountaintop"
         :condition (or (option 'RequireBossCards false)
                        (items "Card: Salesman"))))
-;; ambush clears?
-;; physical item finds? (not necessarily shuffling them)

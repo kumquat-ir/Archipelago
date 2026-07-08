@@ -107,7 +107,7 @@ REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
         "Orb A": HasAny("Wall Run", "Spin Dodge"),
     },
     "Orb A": {
-        "Underwater": None,
+        "Underwater": HasAny("Wall Run", "Spin Dodge"),
         "Claw Bounce Area": HasAll("Spin Dodge", "Energy Claw"),
         "Above Orb A": HasAll("Wall Run", "Spin Dodge"),
     },
@@ -158,7 +158,7 @@ REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
     "Right Floatlands": {
         "Floatlands Ambush": None,
         "Upper Floatlands": HasAny("Energy Claw", "Spin Dodge"),
-        "Solatia": (((CanReachRegion("Upper Floatlands") & CanReachRegion("Lower Floatlands") & CanReachRegion("Floatlands Entry") & CanReachRegion("Power Area")) | HasAll("Speed Boost", "Engine Tune")) & HasAll("Wall Run", "Spin Dodge") & (OptionFilter(RequireBossCards, False) | Has("Card: Solatia"))),
+        "Solatia": (((CanReachRegion("Upper Floatlands") & CanReachRegion("Lower Floatlands") & CanReachRegion("Floatlands Entry") & CanReachRegion("Power Area")) | Has("Speed Boost")) & HasAll("Wall Run", "Spin Dodge") & (OptionFilter(RequireBossCards, False) | Has("Card: Solatia"))),
     },
     "Solatia": {
         "Solatia Run": None,
