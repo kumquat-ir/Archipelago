@@ -1,4 +1,5 @@
-from typing import Any
+from Options import Option
+from typing import Any, Optional
 from collections.abc import Mapping
 from . import items, regions, locations, options
 from worlds.AutoWorld import World, WebWorld
@@ -49,4 +50,24 @@ class VisionSoftResetWorld(World):
         return items.random_filler_item_name(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
-        return {}
+        return {
+            "options": self.options.as_dict("hard_logic", "extra_decryptors", "require_boss_cards", "add_ambushes", "add_physical")
+        }
+
+    # begin standard ut yamlless boilerplate
+    ut_can_gen_without_yaml = True
+
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
+        return slot_data
+
+    def generate_early(self) -> None:
+        re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
+        if re_gen_passthrough and self.game in re_gen_passthrough:
+            slot_data: dict[str, Any] = re_gen_passthrough[self.game]
+
+            slot_options: dict[str, Any] = slot_data.get("options", {})
+            for key, value in slot_options.items():
+                opt: Optional[Option] = getattr(self.options, key, None)
+                if opt is not None:
+                    setattr(self.options, key, opt.from_any(value))

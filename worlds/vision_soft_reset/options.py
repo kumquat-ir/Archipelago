@@ -1,4 +1,4 @@
-from Options import PerGameCommonOptions, Toggle, OptionGroup
+from Options import PerGameCommonOptions, Toggle, OptionGroup, DefaultOnToggle
 import dataclasses
 
 class HardLogic(Toggle):
@@ -15,7 +15,7 @@ class ExtraDecryptors(Toggle):
 
     display_name="Extra Decryptors"
 
-class RequireBossCards(Toggle):
+class RequireBossCards(DefaultOnToggle):
     """
     Require obtaining the card for a boss before you are expected to fight it.
     """
