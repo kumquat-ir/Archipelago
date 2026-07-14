@@ -98,13 +98,13 @@ ITEM_CLASSIFICATIONS: dict[str, ItemClassification | Callable[[World], ItemClass
     "Card: Pengrunt": ItemClassification.useful,
     "Card: Cottospark": ItemClassification.useful,
     "Card: Cottocache": ItemClassification.useful,
-    "Card: Drilbas": ItemClassification.useful,
+    "Card: Drilbas": ItemClassification.filler,
     "Card: Jinvell": ItemClassification.useful,
     "Card: Royalrose": ItemClassification.useful,
     "Card: Rupo": ItemClassification.useful,
     "Card: Froesburn": ItemClassification.useful,
-    "Card: Ghostily": ItemClassification.useful,
-    "Card: Sherivice": ItemClassification.useful,
+    "Card: Ghostily": ItemClassification.filler,
+    "Card: Sherivice": ItemClassification.filler,
     "Card: Griger": lambda world: ItemClassification.progression if getattr(world.options, "require_boss_cards").value else ItemClassification.useful,
     "Card: Solatia": lambda world: ItemClassification.progression if getattr(world.options, "require_boss_cards").value else ItemClassification.useful,
     "Card: Salesman": lambda world: ItemClassification.progression if getattr(world.options, "require_boss_cards").value else ItemClassification.useful,
@@ -165,8 +165,8 @@ NORMAL_POOL: list[str] = [
 ]
 
 TRIMMABLE: list[str] = [
-    "Golden View",
     "Card: Shaifi",
+    "Card: Drilbas",
     "Card: Oracle",
     "Card: Oracle-L",
 ]

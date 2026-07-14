@@ -43,11 +43,10 @@
  (item "Piercing Speed"  113 'progression
        :decryptor-id "SPEED_BOOST_BREAKS_CLAW")
  (item "Golden View"     114 'filler ; shows which decryptor pickups are important in vanilla
-       :trimmable true
        :decryptor-id "SHOW_IMPORTANT")
  (item "d#Z 5~qn. P"     115 'progression
        :decryptor-id "VIRUS")
- (item "Virus Wipe"      116 'filler
+ (item "Virus Wipe"      116 'filler ; doesn't actually do anything as all random virus squares have been removed
        :decryptor-id "VIRUS_WIPE")
  (item "Double Shot"     117 'useful
        :decryptor-id "DOUBLE_SHOT")
@@ -92,7 +91,8 @@
        :card-id 12)
  (item "Card: Cottocache" 212 'useful
        :card-id 13)
- (item "Card: Drilbas"    213 'useful
+ (item "Card: Drilbas"    213 'filler ; more of a stage hazard than an enemy
+       :trimmable true
        :card-id 14)
  (item "Card: Jinvell"    214 'useful
        :card-id 15)
@@ -102,9 +102,9 @@
        :card-id 17)
  (item "Card: Froesburn"  217 'useful
        :card-id 18)
- (item "Card: Ghostily"   218 'useful
+ (item "Card: Ghostily"   218 'filler ; another stage hazard
        :card-id 19)
- (item "Card: Sherivice"  219 'useful ; technically a boss but is really just the tutorial
+ (item "Card: Sherivice"  219 'filler ; technically a boss but is really just the tutorial
        :card-id 20)
  (item "Card: Griger"     220 (if-option "require_boss_cards" 'progression 'useful)
        :card-id 21)

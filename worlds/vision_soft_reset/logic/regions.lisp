@@ -183,7 +183,7 @@
              (and (items "Wall Run")
                   (any-item "Spin Dodge"
                             "Speed Boost")
-                  (or (items "Heat Reisist"
+                  (or (items "Heat Resist"
                              "Spin Dodge")
                       spin-double)))
          (-> "Past First Puzzle"

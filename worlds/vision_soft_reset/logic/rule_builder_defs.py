@@ -117,7 +117,6 @@ def location_list(*locations: LocationInfo):
     option_rules: dict[str, dict[str, str]] = {}
 
     for location in locations:
-
         if location.id is not None:
             id_mapping[location.name] = location.id
             if location.include_option is not None:
