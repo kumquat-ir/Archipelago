@@ -188,7 +188,9 @@
                       spin-double)))
          (-> "Past First Puzzle"
              (and boost-climb
-                  charge-wall)))
+                  charge-wall
+                  (or (option 'HardLogic true)
+                      (items "Spin Dodge")))))
  (region "Hot Water Area"
          (-> "Warehouse"
              (and boost-climb

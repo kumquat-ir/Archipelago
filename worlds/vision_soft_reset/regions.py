@@ -118,7 +118,7 @@ REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
     },
     "Endoplanetary Shield": {
         "Hot Water Area": (Has("Wall Run") & HasAny("Spin Dodge", "Speed Boost") & (HasAll("Heat Resist", "Spin Dodge") | HasAll("Spin Dodge", "Spin Double"))),
-        "Past First Puzzle": (HasAll("Speed Boost", "Wall Run") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw"))),
+        "Past First Puzzle": (HasAll("Speed Boost", "Wall Run") & (Has("Charge Shot") | HasAll("Energy Claw", "Vile Claw")) & (OptionFilter(HardLogic, True) | Has("Spin Dodge"))),
     },
     "Hot Water Area": {
         "Warehouse": (HasAll("Speed Boost", "Wall Run") & (HasAll("Heat Resist", "Spin Dodge") | HasAll("Spin Dodge", "Spin Double"))),
