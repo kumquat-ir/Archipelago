@@ -80,6 +80,6 @@
           (entrance? "Endoplanetary Shield" "Past First Puzzle")))
 
 (logic-data
- :regions (require "regions")
  :locations (require "locations")
+ :regions (require "regions")
  :goal (items "Victory"))

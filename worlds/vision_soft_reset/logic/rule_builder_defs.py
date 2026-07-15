@@ -105,7 +105,7 @@ def region_list(*regions: RegionInfo) -> dict[str, dict[str, str | None]]:
 def location(name: str, id: int, region: str, condition: str | None = None, include_option: str | None = None, **_kwargs) -> LocationInfo:
     return LocationInfo(name, id, region, condition, None, include_option)
 
-def event(location_name: str, item_name: str, region: str, condition: str | None = None) -> LocationInfo:
+def event(location_name: str, item_name: str, region: str, condition: str | None = None, **_kwargs) -> LocationInfo:
     return LocationInfo(location_name, None, region, condition, item_name, None)
 
 def location_list(*locations: LocationInfo):
