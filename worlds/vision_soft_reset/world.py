@@ -1,7 +1,7 @@
 from Options import Option
-from typing import Any, Optional
+from typing import Any, Optional, ClassVar
 from collections.abc import Mapping
-from . import items, regions, locations, options
+from . import items, regions, locations, options, settings, ut_data
 from worlds.AutoWorld import World, WebWorld
 
 class VisionSoftResetWebWorld(WebWorld):
@@ -22,6 +22,7 @@ class VisionSoftResetWorld(World):
 
     options_dataclass = options.VisionSoftResetOptions
     options: options.VisionSoftResetOptions
+    settings: settings.VisionSoftResetSettings
 
     item_name_to_id = items.ITEM_ID_MAP
     location_name_to_id = locations.LOCATION_ID_MAP
@@ -53,6 +54,8 @@ class VisionSoftResetWorld(World):
         return {
             "options": self.options.as_dict("hard_logic", "extra_decryptors", "require_boss_cards", "add_ambushes", "add_physical")
         }
+
+    tracker_world: ClassVar = ut_data.tracker_world
 
     # begin standard ut yamlless boilerplate
     ut_can_gen_without_yaml = True

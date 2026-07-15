@@ -182,15 +182,16 @@ def event(location_name: str, item_name: str, region: str, *, coords, condition,
 def map_location(coords: tuple[float, float]) -> dict:
     return {
         "map": "map",
-        "x": int(coords[0] * 9 - 4.5),
-        "y": 216 - int(coords[1] * 6 - 3)
+        "x": int(4 * (coords[0] * 9 - 4.5)),
+        "y": int(4 * (216 - (coords[1] * 6 - 3)))
     }
 
 def at_location(region: str, group: str | None = None, name: str | None = None) -> str:
     return f"@{region}{'/' + group if group is not None else ''}{'/' + name if name is not None else ''}{'/' if group is None and name is not None else ''}"
 
-def location_list(*locations: LocationInfo | None) -> tuple[dict[int, str], dict[str, list[Any]]]:
+def location_list(*locations: LocationInfo | None) -> tuple[dict[int, str], dict[str, list[Any]], dict[str, int]]:
     location_mapping = {loc.id: at_location(loc.region, loc.group, loc.name) for loc in locations if loc is not None and loc.id != 0}
+    ut_mapping = {loc.name + '/': loc.id for loc in locations if loc is not None and loc.group is None}
 
     location_data: dict[str, list[Any]] = {}
     groups: dict[str, Any] = {}
@@ -231,7 +232,7 @@ def location_list(*locations: LocationInfo | None) -> tuple[dict[int, str], dict
                 }]
             })
 
-    return (location_mapping, location_data)
+    return (location_mapping, location_data, ut_mapping)
 
 def connection(to: str, condition: str | None = None) -> tuple[str, str | None]:
     return (to, condition)
@@ -268,10 +269,10 @@ def region_list(*regions: RegionInfo) -> dict[str, dict]:
         for region in (list(regions) + entrances)
     }
 
-def logic_data(regions: dict[str, dict], locations: tuple[dict, dict], **_kwargs) -> tuple[dict, list]:
+def logic_data(regions: dict[str, dict], locations: tuple[dict, dict, dict], **_kwargs) -> tuple[dict, list, dict]:
     for location in locations[1]:
         regions[location]["children"].extend(locations[1][location])
-    return (locations[0], list(regions.values()))
+    return (locations[0], list(regions.values()), locations[2])
 
 def use() -> None:
     global entrances_to_generate

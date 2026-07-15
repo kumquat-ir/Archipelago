@@ -68,9 +68,12 @@ if (this_dir / "tracker").exists:
            item_mapping=item_mapping)
     render_json(item_data, this_dir / "tracker" / "items" / "items.json")
 
-    (location_mapping, location_data) = interpreter.parse_file(this_dir / "logic.lisp")
+    (location_mapping, location_data, ut_mapping) = interpreter.parse_file(this_dir / "logic.lisp")
     render("location_mapping.template.lua", this_dir / "tracker" / "scripts" / "autotracking" / "location_mapping.lua",
            location_mapping=location_mapping)
     render_json(location_data, this_dir / "tracker" / "locations" / "locations.json")
+
+    render("ut_data.template.py", this_dir.parent / "ut_data.py",
+           ut_mapping=ut_mapping)
 else:
     print("Not rendering tracker files, logic/tracker not found")
