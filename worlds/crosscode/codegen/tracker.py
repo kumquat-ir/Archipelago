@@ -320,16 +320,27 @@ class TrackerData:
         for mode, region_pack in self.regions.items():
             mode_data: dict[str, Any] = {}
 
+            seen_regions = set()
+            no_logic_regions = []
             for connection in region_pack.region_connections:
                 if connection.region_from in region_pack.excluded_regions or connection.region_to in region_pack.excluded_regions:
                     continue
+
+                if connection.region_from not in seen_regions:
+                    no_logic_regions.append(connection.region_from)
+
+                seen_regions.add(connection.region_from)
+                seen_regions.add(connection.region_to)
+
+                if connection.region_to in no_logic_regions:
+                    no_logic_regions.remove(connection.region_to)
 
                 mode_data.setdefault(connection.region_to, {
                     "name": connection.region_to,
                     "access_rules": []
                 })["access_rules"].extend(self._dnf_condition([RegionCondition(mode, connection.region_from)] + (connection.cond or [])))
 
-            for region in region_pack.region_list + ["Menu"]:
+            for region in no_logic_regions + ["Menu"]:
                 if region in region_pack.excluded_regions:
                     continue
 
