@@ -1,6 +1,7 @@
 """
 This module contains code to create the generated python lists and mod data files.
 """
+import glob
 
 from collections import defaultdict
 from copy import deepcopy
@@ -8,6 +9,7 @@ import logging
 import typing
 import os
 import json
+import re
 
 import jinja2
 
@@ -18,6 +20,7 @@ from ..types.items import ProgressiveItemChain, ProgressiveItemChainMulti, Progr
 from ..types.json_data import ExportInfo
 from ..types.regions import RegionsData
 
+from .tracker import TrackerData
 from .context import Context, make_context_from_package
 from .util import GENERATED_COMMENT
 from .lists import ListInfo
@@ -35,9 +38,11 @@ class FileGenerator:
     regions_data: dict[str, RegionsData]
     world_dir: str
     data_out_dir: str
+    tracker_dir: str
 
     def __init__(self, world_dir: str, lists: typing.Optional[ListInfo] = None):
         data_out_dir = os.path.join(world_dir, "data", "out")
+        tracker_dir = os.path.join(world_dir, "data", "tracker")
         template_dir = os.path.join(world_dir, "templates")
 
         self.environment = jinja2.Environment(
@@ -59,6 +64,7 @@ class FileGenerator:
 
         self.world_dir = world_dir
         self.data_out_dir = data_out_dir
+        self.tracker_dir = tracker_dir
 
         self.environment.add_extension(CrossCodeJinjaExtension)
 
@@ -346,3 +352,12 @@ class FileGenerator:
         with open(os.path.join(self.data_out_dir, "items.json"), "w", encoding="utf8") as f:
             item_ids = { loc.name: loc.combo_id for loc in self.lists.dynamic_items.values()  }
             json.dump(item_ids, f, indent='\t')
+
+    def generate_tracker_files(self):
+        tracker_data = TrackerData(self.tracker_dir, self.lists, self.regions_data)
+
+        for file in glob.iglob("*.json", root_dir=os.path.join(self.tracker_dir, "locations")):
+            if file.endswith("dummy_locations.json") or file.endswith("regions_generated.json"):
+                continue
+            tracker_data.update_locations(file)
+        tracker_data.generate_regions()

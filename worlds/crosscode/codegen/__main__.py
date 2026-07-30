@@ -14,6 +14,7 @@ To run it for yourself, navigate to the root directory and run `python -m worlds
 """
 
 import argparse
+import os
 
 from .context import make_context_from_package
 from .gen import FileGenerator
@@ -44,6 +45,13 @@ parser.add_argument(
     action="store_false"
 )
 
+parser.add_argument(
+    "-t", "--tracker-data",
+    dest="tracker",
+    action="store_true",
+    help="Generate logic data for the tracker"
+)
+
 namespace = parser.parse_args()
 
 if namespace.python:
@@ -52,6 +60,7 @@ if namespace.python:
 else:
     from ..items import items_dict, single_items_dict
     from ..locations import locations_dict, events_dict
+    from ..shops import shop_dict, shop_unlock_by_id, shop_unlock_by_shop, shop_unlock_by_shop_and_id
 
     ctx = make_context_from_package("worlds.crosscode")
 
@@ -60,8 +69,15 @@ else:
     lists.items_dict = items_dict
     lists.locations_data = locations_dict
     lists.events_data = events_dict
+    lists.shop_data = shop_dict
+    lists.shop_unlock_by_id = shop_unlock_by_id
+    lists.shop_unlock_by_shop = shop_unlock_by_shop
+    lists.shop_unlock_by_shop_and_id = shop_unlock_by_shop_and_id
 
     fg = FileGenerator("worlds/crosscode", lists)
 
 if namespace.mod:
     fg.generate_mod_files()
+
+if namespace.tracker:
+    fg.generate_tracker_files()
