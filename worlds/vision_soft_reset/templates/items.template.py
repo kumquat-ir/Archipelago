@@ -73,7 +73,7 @@ def fill_item_pool(world: World) -> None:
         # more items than locations! thankfully, we have a list of items that are safe to remove, so do that first
         to_trim = TRIMMABLE[:]
         for _ in range(max(len(TRIMMABLE) - needed_trims, 0)):
-            to_trim.pop(world.random.randint(0, 1-len(to_trim)))
+            to_trim.pop(world.random.randint(0, len(to_trim)-1))
         for trim in to_trim:
             staged_pool.remove(trim)
 
