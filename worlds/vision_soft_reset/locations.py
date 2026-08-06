@@ -182,7 +182,7 @@ LOCATION_RULES: dict[str, Rule] = {
     "Decryptor: Strip Suit": (HasAll("Wall Run", "Spin Dodge") & Has("d#Z 5~qn. P")),
     "Decryptor: Shell Escape": Has("Strip Suit"),
     "Decryptor: Vile Claw": Has("Energy Claw"),
-    "Decryptor: Piercing Speed": (HasAll("Wall Run", "Spin Dodge") & (Has("Speed Boost") | HasAll("Spin Double", "Twister Jump"))),
+    "Decryptor: Piercing Speed": (HasAll("Wall Run", "Spin Dodge") & (Has("Speed Boost") | (HasAll("Spin Dodge", "Spin Double") & (OptionFilter(HardLogic, True) & Has("Spin Dodge"))))),
     "Decryptor: Golden View": CanReachRegion("Power Area"),
     "Decryptor: Virus Wipe": (HasAll("Wall Run", "Spin Dodge") & Has("d#Z 5~qn. P")),
     "Decryptor: Double Shot": Has("Speed Boost"),
@@ -191,8 +191,8 @@ LOCATION_RULES: dict[str, Rule] = {
     "Card 04: Wavemoth": HasAny("Wall Run", "Spin Dodge"),
     "Card 07: Sealime": (HasAll("Speed Boost", "Wall Run") | (HasAll("Spin Dodge", "Spin Double") & Has("Wall Run"))),
     "Card 08: Toucade": Has("Spin Dodge"),
-    "Card 11: Cottospark": (Has("Speed Boost") & HasAny("Wall Run", "Spin Dodge")),
-    "Card 12: Cottocache": (Has("Speed Boost") & HasAny("Wall Run", "Spin Dodge")),
+    "Card 11: Cottospark": (HasAll("Speed Boost", "Wall Run") | (CanReachEntrance("Under Beach -> Above Orb A") & Has("Spin Dodge"))),
+    "Card 12: Cottocache": (HasAll("Speed Boost", "Wall Run") | (CanReachEntrance("Under Beach -> Above Orb A") & Has("Spin Dodge"))),
     "Card 13: Drilbas": HasAll("Wall Run", "Spin Dodge"),
     "Card 14: Jinvell": HasAll("Speed Boost", "Wall Run", "Spin Dodge"),
     "Card 16: Rupo": HasAll("Speed Boost", "Wall Run"),
@@ -292,7 +292,7 @@ OPTION_LOCATION_RULES: dict[str, dict[str, Rule]] = {
         "Phase Upgrade Outside Griger's Base": HasAny("Wall Run", "Spin Dodge"),
         "Orb A": (Has("Spin Dodge") | HasAll("Speed Boost", "Wall Run")),
         "Orb B": (Has("Spin Dodge") | CanReachEntrance("Upper Floatlands -> Orb B") | HasAll("Speed Boost", "Wall Run")),
-        "Orb C": (Has("Wall Run") | HasAll("Spin Dodge", "Spin Double") | HasAll("Spin Dodge", "Twister Jump")),
+        "Orb C": (Has("Wall Run") | HasAll("Spin Dodge", "Spin Double") | (OptionFilter(HardLogic, True) & Has("Spin Dodge"))),
     },
 }
 

@@ -137,7 +137,7 @@ REGION_DATA: dict[str, dict[str, Rule | None] | None] = {
     "Upper Floatlands": {
         "Orb B": None,
         "Floatlands Entry": None,
-        "Right Floatlands": (Has("Spin Dodge") & HasAny("Energy Claw", "Spin Double", "Twister Jump")),
+        "Right Floatlands": (Has("Spin Dodge") & ((OptionFilter(HardLogic, True) & Has("Spin Dodge")) | HasAny("Energy Claw", "Spin Double"))),
     },
     "Lower Floatlands": {
         "Orb B": HasAll("Wall Run", "Spin Dodge"),
