@@ -148,15 +148,17 @@
            :coords '(16 11.5))
  (location "Card 11: Cottospark" 211
            :region "Above Orb A"
-           :condition (and (items "Speed Boost")
-                           any-vertical)
+           :condition (or boost-climb
+                          (and (entrance? "Under Beach" "Above Orb A")
+                               (items "Spin Dodge")))
            :card-id 12
            :tracker-group "Cotto Cards"
            :coords '(5 17))
  (location "Card 12: Cottocache" 212
            :region "Above Orb A"
-           :condition (and (items "Speed Boost")
-                           any-vertical)
+           :condition (or boost-climb
+                          (and (entrance? "Under Beach" "Above Orb A")
+                               (items "Spin Dodge")))
            :card-id 13
            :tracker-group "Cotto Cards")
  (location "Card 13: Drilbas"    213
