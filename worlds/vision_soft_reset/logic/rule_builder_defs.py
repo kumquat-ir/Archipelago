@@ -56,6 +56,8 @@ def item_list(*items: ItemInfo) -> tuple[dict[str, int], dict[str, str], dict[st
         if item.filler_weight is not None:
             filler_weights[item.name] = item.filler_weight
         elif item.pool_option is not None:
+            if item.pool_option == False:
+                continue
             if item.pool_option not in option_pools:
                 option_pools[item.pool_option] = []
             option_pools[item.pool_option].append(item.name)

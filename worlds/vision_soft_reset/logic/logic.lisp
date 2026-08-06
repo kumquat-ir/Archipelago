@@ -53,8 +53,8 @@
       (items "Spin Dodge"
              "Spin Double")
       'twister-jump
-      (items "Spin Dodge"
-             "Twister Jump"))
+      (and (option 'HardLogic true)
+           (items "Spin Dodge")))
 
 (set 'here-be-cottosparks
      (and (items "Spin Dodge")

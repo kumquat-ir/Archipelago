@@ -4,6 +4,7 @@ import dataclasses
 class HardLogic(Toggle):
     """
     Add some more difficult/inconsistent tricks to logic.
+    Includes using spin dodge along the ground and jumping to get a long jump.
     """
 
     display_name="Hard Logic"

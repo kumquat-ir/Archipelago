@@ -55,8 +55,8 @@
  (item "Spin Double"       118 'progression
        :pool-option "extra_decryptors"
        :decryptor-id "SPIN_DOUBLE")
- (item "Twister Jump"      119 'progression
-       :pool-option "extra_decryptors"
+ (item "Twister Jump"      119 'filler
+       :pool-option false
        :decryptor-id "SPIN_DODGE_JUMP")
  (item "Chamber Focus"     120 'useful
        :pool-option "extra_decryptors"

@@ -219,9 +219,9 @@
          (-> "Floatlands Entry" nil)
          (-> "Right Floatlands"
              (and (items "Spin Dodge")
-                  (any-item "Energy Claw"
-                            "Spin Double"
-                            "Twister Jump"))))
+                  (or twister-jump
+                      (any-item "Energy Claw"
+                                "Spin Double")))))
  (region "Lower Floatlands"
          (-> "Orb B"
              both-vertical))

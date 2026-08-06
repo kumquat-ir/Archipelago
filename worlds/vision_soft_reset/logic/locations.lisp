@@ -73,8 +73,8 @@
            :region "Upper Mountain"
            :condition (and both-vertical
                            (or (items "Speed Boost")
-                               (items "Spin Double"
-                                      "Twister Jump")))
+                               (and spin-double
+                                    twister-jump)))
            :decryptor-id "SPEED_BOOST_BREAKS_CLAW"
            :coords '(29 30))
  (location "Decryptor: Golden View"     114
